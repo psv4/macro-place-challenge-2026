@@ -22,7 +22,7 @@ def _load_plc(name):
     from macro_place.loader import load_benchmark_from_dir, load_benchmark
     root = Path("external/MacroPlacement/Testcases/ICCAD04") / name
     if root.exists():
-        _, plc = load_benchmark_from_dir(str(root))
+        _, plc = load_benchmark_from_dir(str(root.as_posix()))
         return plc
     ng45 = {"ariane133_ng45": "ariane133", "ariane136_ng45": "ariane136",
             "nvdla_ng45": "nvdla", "mempool_tile_ng45": "mempool_tile"}
