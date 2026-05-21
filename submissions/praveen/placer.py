@@ -52,7 +52,7 @@ class PraveenPlacer:
 
     gap: float = 0.001
     device: torch.Device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    max_iters: int = 1000
+    max_iters: int = 2048
 
     def _wirelength_cost(self, placement: torch.Tensor, benchmark: Benchmark) -> torch.Tensor:
         '''
@@ -209,6 +209,7 @@ class PraveenPlacer:
 
         # Only place hard macros; soft macros stay at initial positions
         movable_d = benchmark.get_movable_mask().to(self.device)
+        # movable_d = torch.logical_and(benchmark.get_movable_mask(), benchmark.get_hard_macro_mask()).to(self.device)
         hard_macro_mask_d = torch.logical_and(benchmark.get_movable_mask(), benchmark.get_hard_macro_mask()).to(self.device)
 
         # Mask placement
